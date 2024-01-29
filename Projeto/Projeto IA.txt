@@ -1,0 +1,44 @@
+Projeto IA
+
+-> Dragao fica sempre no mesmo sitio e amarelos mudam entre tuneis
+-> inimigos viajam no labirinto que fomos abrindo
+-> remover a janela assim que desenvolvemos o agente
+-> didcionario contem o mapa, corredenadas do digdug, inimigo, quanto tempo passou, etc : está lá tudo guardado
+->vai constantemnente receber o deicionario em ciclo infinito
+-> criar uma classe agente que recebe estado e que devolve a tecla. (agente é algo que recebe estado e dá uma tecla)
+-> B não faz nada, A lança corda
+-> è opçõa válida não fazer nada durante 1 frame (não devolver uma tecla)
+-> atenção ao slack e fazer updates periodicamente por causa de bugs
+-> manter o steady state de demorar entre x e y segundos (se mandarmos demasiados comandos dentro de um intervalo de tempo, o programa só realiza os que conseguir, eliminando os restantes
+-> precisas de 3 ataques (frames) para atacar um inimigo
+-> fica com "memória" se já for atacado para trás, mas vai recuperar de forma random ao longo do tempo
+-> jogo tem componente reativa muito forte (enquanto se ataca, pode haver um inimigo a atacar-nos)
+-> inimigos podem desaparecer se for pelo corredor aberto mas desta forma não se ganham pontos porque não os matamos diretamente
+-> matar em níveis diferentes ganhas diferentes níveis de pontos. 
+-> matar em posições horizontais ou verticais obtem-se pontos diferentes
+-> para matar usando a pedra, ganha-se 10 000 pontos.
+-> até ao nível 10, probabilidade de aparecerem mais dragões aumenta
+-> mostros não abrem tuneis. Se abrirmos cada vez mais o ecra, menos pontos vais ganhado, tentar abrir o menos possível.
+
+Dica: no inicio começar com ir ao inimigo mais perto e disparar, com esse pensamento já temos 10.
+
+-> 1ª entrega foca-se na rapidez
+-> 2ª entrega foca-se no código e relatório
+
+Ex: 
+{'level': 1, 'step': 50, 'timeout': 3000, 'player': 'josemcg', 'score': 0, 'lives': 3, 'digdug': [3, 1], 'enemies': [{'name': 'Fygar', 'id': 'b5fa87ca-e7da-4dfb-9302-8cea67beffd3', 'pos': [27, 8], 'dir': 2}, {'name': 'Pooka', 'id': '03099926-a18d-4d8d-8be5-e103399e7810', 'pos': [38, 13], 'dir': 2}, {'name': 'Pooka', 'id': '4db8ebdd-fe14-4bb6-8175-bd215339bc74', 'pos': [17, 23], 'dir': 1}], 'rocks': [{'id': '02754c0b-e241-4fc1-914b-1aad91934d5f', 'pos': [43, 4]}]}
+{'level': 1, 'step': 51, 'timeout': 3000, 'player': 'josemcg', 'score': 0, 'lives': 3, 'digdug': [4, 1], 'enemies': [{'name': 'Fygar', 'id': 'b5fa87ca-e7da-4dfb-9302-8cea67beffd3', 'pos': [27, 8], 'dir': 2}, {'name': 'Pooka', 'id': '03099926-a18d-4d8d-8be5-e103399e7810', 'pos': [38, 14], 'dir': 2}, {'name': 'Pooka', 'id': '4db8ebdd-fe14-4bb6-8175-bd215339bc74', 'pos': [18, 23], 'dir': 1}], 'rocks': [{'id': '02754c0b-e241-4fc1-914b-1aad91934d5f', 'pos': [43, 4]}]}
+{'level': 1, 'step': 52, 'timeout': 3000, 'player': 'josemcg', 'score': 0, 'lives': 3, 'digdug': [4, 1], 'enemies': [{'name': 'Fygar', 'id': 'b5fa87ca-e7da-4dfb-9302-8cea67beffd3', 'pos': [27, 9], 'dir': 2}, {'name': 'Pooka', 'id': '03099926-a18d-4d8d-8be5-e103399e7810', 'pos': [38, 14], 'dir': 2}, {'name': 'Pooka', 'id': '4db8ebdd-fe14-4bb6-8175-bd215339bc74', 'pos': [19, 23], 'dir': 1}], 'rocks': [{'id': '02754c0b-e241-4fc1-914b-1aad91934d5f', 'pos': [43, 4]}]}
+{'level': 1, 'step': 53, 'timeout': 3000, 'player': 'josemcg', 'score': 0, 'lives': 3, 'digdug': [5, 1], 'enemies': [{'name': 'Fygar', 'id': 'b5fa87ca-e7da-4dfb-9302-8cea67beffd3', 'pos': [27, 9], 'dir': 2}, {'name': 'Pooka', 'id': '03099926-a18d-4d8d-8be5-e103399e7810', 'pos': [38, 14], 'dir': 3}, {'name': 'Pooka', 'id': '4db8ebdd-fe14-4bb6-8175-bd215339bc74', 'pos': [20, 23], 'dir': 1}], 'rocks': [{'id': '02754c0b-e241-4fc1-914b-1aad91934d5f', 'pos': [43, 4]}]}
+
+
+--
+O Bonuns Score é calculado com base em: 
+bonus_score = (
+            self._score
+            + (self.map.level * TIMEOUT - self._total_steps) // 10
+            + self._digdug.lives * 1000
+        )
+
+
+Isto pode não fazer sentido, mas ao atacar de lado, não raramente pões a tua vida em risco. Eles ao passarem pela corda, param e morrem (exceto um, mas acho que anda mais no sentido de Bug)

@@ -1,0 +1,12 @@
+# Exclude virtual environment
+venv/
+
+# Exclude IDE/Editor-specific files
+.vscode/
+.idea/
+*.pyc
+__pycache__/
+*.egg-info/
+dist/
+build/
+
